@@ -5,10 +5,17 @@ import TokenField from './components/TokenField';
 import { Col, Container, Row } from 'react-bootstrap';
 import SelectCoursesTextContainer from './components/SelectCoursesTextContainer';
 import StickyFooter from './components/StickyFooter';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
     return (
         <>
+            <ToastContainer
+                pauseOnFocusLoss={false}
+                position='bottom-right'
+                autoClose={1500}
+            />
             <Container fluid className='g-0'>
                 <Row className='g-0'>
                     <Col>

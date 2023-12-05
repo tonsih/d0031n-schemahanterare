@@ -28,6 +28,7 @@ import {
 } from '../slices/reservationsSlice';
 import ConfirmationModal from './ConfirmationModal';
 import ReservationInfoModal from './ReservationInfoModal';
+import { toast } from 'react-toastify';
 moment.tz.setDefault('Europe/Stockholm');
 
 const LadokCalendar: React.FC = () => {
@@ -363,37 +364,52 @@ const LadokCalendar: React.FC = () => {
             const dateTimeToISOString = (date: string, time: string) =>
                 moment(`${date} ${time}`, 'YYYY-MM-DD HH:mm').toISOString();
 
-            if (reservationsToRegister && reservationsToRegister.length > 0) {
-                setSendIsLoading(true);
-                for (const reservation of reservationsToRegister) {
-                    try {
-                        const {
-                            startdate,
-                            starttime,
-                            enddate,
-                            endtime,
-                            columns,
-                            description,
-                        } = reservation;
-
-                        await addEvent({
-                            eventData: {
-                                start_at: dateTimeToISOString(
+            if (reservationsToRegister) {
+                const sendReservationsToCanvas = () => {
+                    const promises = reservationsToRegister.map(
+                        async reservation => {
+                            try {
+                                const {
                                     startdate,
-                                    starttime
-                                ),
-                                end_at: dateTimeToISOString(enddate, endtime),
-                                description: description || '',
-                                title: columns[1],
-                                location_name: columns[2] || '',
-                            },
-                            authtoken,
-                            contextCode: `user_${user.id}`,
-                        }).unwrap();
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
+                                    starttime,
+                                    enddate,
+                                    endtime,
+                                    columns,
+                                    description,
+                                } = reservation;
+
+                                return await addEvent({
+                                    eventData: {
+                                        start_at: dateTimeToISOString(
+                                            startdate,
+                                            starttime
+                                        ),
+                                        end_at: dateTimeToISOString(
+                                            enddate,
+                                            endtime
+                                        ),
+                                        description: description || '',
+                                        title: columns[1],
+                                        location_name: columns[2] || '',
+                                    },
+                                    authtoken,
+                                    contextCode: `user_${user.id}`,
+                                }).unwrap();
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        }
+                    );
+
+                    return Promise.all(promises);
+                };
+
+                setSendIsLoading(true);
+                await toast.promise(sendReservationsToCanvas(), {
+                    pending: 'Bearbetar schemaregistrering...',
+                    success: 'Schemat är nu framgångsrikt registrerat!',
+                    error: 'Ett fel uppstod under registreringen av schemat',
+                });
                 setSendIsLoading(false);
                 setSendConfirmationModalOpen(false);
             }

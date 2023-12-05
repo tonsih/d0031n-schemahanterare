@@ -22,7 +22,7 @@ const RemoveAllCanvasEventsButton: React.FC = () => {
 
     return (
         <Button
-            className='d-flex justify-content-center align-items-center'
+            className='d-flex justify-content-center align-items-center remove-all-canvas-events-btn'
             onClick={handleClick}
             disabled={!authtoken || !userId}
         >
@@ -32,7 +32,7 @@ const RemoveAllCanvasEventsButton: React.FC = () => {
                 </div>
             )}
             <div className='btn-text'>
-                {!isLoading ? (
+                {isLoading ? (
                     `Remove all Canvas events`
                 ) : (
                     <Spinner

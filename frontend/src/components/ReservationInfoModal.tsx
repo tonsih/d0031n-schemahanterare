@@ -76,6 +76,17 @@ const ReservationInfoModal: React.FC<ReservationInfoModalProps> = ({
         );
     };
 
+    const getTeachersInitialValue = () => {
+        let teacherValue: string | string[] | undefined = undefined;
+        if (Array.isArray(teachers)) {
+            teacherValue = teachers.join(', ');
+        } else if (typeof teachers === 'string') {
+            teacherValue = teachers.split(',').map(s => s.trim());
+        }
+
+        return teacherValue;
+    };
+
     return (
         <>
             <Modal show={show} onHide={handleClose} centered>
@@ -87,7 +98,7 @@ const ReservationInfoModal: React.FC<ReservationInfoModalProps> = ({
                         innerRef={formikRef}
                         initialValues={{
                             type: type || '',
-                            teachers: teachers || '',
+                            teachers: getTeachersInitialValue() || '',
                             location: location || '',
                             description: description || '',
                         }}
