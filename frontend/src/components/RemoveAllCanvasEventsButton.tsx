@@ -32,7 +32,7 @@ const RemoveAllCanvasEventsButton: React.FC = () => {
                 </div>
             )}
             <div className='btn-text'>
-                {isLoading ? (
+                {!isLoading ? (
                     `Remove all Canvas events`
                 ) : (
                     <Spinner
