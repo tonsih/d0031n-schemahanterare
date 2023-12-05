@@ -1,0 +1,9 @@
+.footer {
+    background-color: var(--background-color-white);
+    border: 1px var(--border-color-gray) solid;
+    border-radius: 0 var(--main-border-radius) 0 0;
+    width: 280px;
+    .footer-menu-list {
+        transition: 0.3s;
+    }
+}

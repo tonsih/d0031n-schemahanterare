@@ -1,0 +1,95 @@
+.fc-timegrid-event-harness,
+.fc-event {
+    border: none;
+    border-radius: var(--main-border-radius) !important;
+    .fc-event-main {
+        border-radius: var(--main-border-radius) !important;
+        padding: var(--main-padding) !important;
+        font-size: var(--font-size);
+        background-color: var(--background-color-white) !important;
+        border: var(--border-color-dark) 1px solid !important;
+        color: var(--color-dark);
+        .non-edit-mode & {
+            color: var(--background-color-white);
+            background-color: var(--background-color-dark) !important;
+        }
+        transition: 0.3s;
+    }
+}
+
+.fc-daygrid-event-harness {
+    margin: 5px 0;
+    border: 1px solid white;
+    border-radius: var(--main-border-radius) !important;
+    .fc-event {
+        padding: var(--main-padding);
+        border: none !important;
+        color: var(--color-dark);
+        background-color: var(--background-color-white) !important;
+        border: var(--border-color-dark) 1px solid !important;
+        .non-edit-mode & {
+            color: var(--background-color-white);
+            background-color: var(--background-color-dark) !important;
+        }
+        transition: 0.3s;
+    }
+}
+
+.fc-button {
+    background-color: var(--background-color-dark) !important;
+    border-color: var(--background-color-dark) !important;
+    &:hover {
+        background-color: var(--hover-background-color-dark) !important;
+        border-color: var(--hover-border-color-dark) !important;
+    }
+    transition: 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.send-btn {
+    display: flex;
+    margin-left: var(--main-padding) !important;
+    width: var(--send-btn-width);
+    justify-content: center;
+    align-items: center;
+    &.non-edit-mode-btn {
+        background-color: var(--send-btn-background) !important;
+        border-color: var(--send-btn-background) !important;
+        &:hover {
+            background-color: var(--hover-send-btn-background) !important;
+            border-color: var(--hover-send-btn-background) !important;
+        }
+    }
+}
+
+.edit-btn {
+    display: flex;
+    width: var(--send-btn-width);
+    justify-content: center;
+    align-items: center;
+    &.non-edit-mode-btn {
+        background-color: var(--edit-btn-background) !important;
+        border-color: var(--edit-btn-background) !important;
+        &:hover {
+            background-color: var(--hover-background-color-dark) !important;
+            border-color: var(--hover-border-color-dark) !important;
+        }
+    }
+}
+
+.btn-text {
+    margin-left: var(--btn-text-margin-left);
+}
+
+.fc-col-header-cell-cushion {
+    color: var(--color-black);
+    a {
+        &:hover {
+            --bs-link-color-rgb: none;
+        }
+    }
+}
+
+.event-type {
+    font-size: 0.9rem;
+}

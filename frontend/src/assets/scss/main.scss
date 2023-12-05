@@ -1,0 +1,11 @@
+@use 'bootstrap/dist/css/bootstrap.min.css';
+
+@use 'base/fonts';
+@use 'base/global';
+@use 'base/variables';
+
+@use 'components/kurser-value-list';
+@use 'components/ladok-calendar';
+@use 'components/reservation-info-modal';
+@use 'components/select-courses-text-container';
+@use 'components/sticky-footer';

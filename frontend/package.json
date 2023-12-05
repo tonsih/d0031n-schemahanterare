@@ -1,0 +1,52 @@
+{
+    "name": "frontend",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "preview": "vite preview",
+        "test": "npx dotenv -e .env.development playwright test",
+        "test-codegen": "npx dotenv -e .env.development playwright codegen"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "^6.1.9",
+        "@fullcalendar/daygrid": "^6.1.10",
+        "@fullcalendar/interaction": "^6.1.9",
+        "@fullcalendar/moment-timezone": "^6.1.10",
+        "@fullcalendar/react": "^6.1.9",
+        "@fullcalendar/timegrid": "^6.1.9",
+        "@reduxjs/toolkit": "^1.9.7",
+        "animate.css": "^4.1.1",
+        "bootstrap": "^5.3.2",
+        "cross-env": "^7.0.3",
+        "dotenv": "^16.3.1",
+        "formik": "^2.4.5",
+        "moment": "^2.29.4",
+        "react": "^18.2.0",
+        "react-bootstrap": "^2.9.1",
+        "react-dom": "^18.2.0",
+        "react-icons": "^4.12.0",
+        "react-redux": "^8.1.3",
+        "react-select": "^5.8.0",
+        "tippy.js": "^6.3.7",
+        "yup": "^1.3.2"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.40.1",
+        "@types/node": "^20.10.0",
+        "@types/react": "^18.2.37",
+        "@types/react-dom": "^18.2.15",
+        "@typescript-eslint/eslint-plugin": "^6.10.0",
+        "@typescript-eslint/parser": "^6.10.0",
+        "@vitejs/plugin-react": "^4.2.0",
+        "eslint": "^8.53.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.4",
+        "sass": "^1.69.5",
+        "typescript": "^5.2.2",
+        "vite": "^5.0.0"
+    }
+}
