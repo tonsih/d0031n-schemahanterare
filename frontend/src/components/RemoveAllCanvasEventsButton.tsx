@@ -33,7 +33,7 @@ const RemoveAllCanvasEventsButton: React.FC = () => {
             )}
             <div className='btn-text'>
                 {!isLoading ? (
-                    `Remove all Canvas events`
+                    `Rensa Canvas kalendern`
                 ) : (
                     <Spinner
                         animation='border'
