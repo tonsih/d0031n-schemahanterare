@@ -233,11 +233,23 @@ const LadokCalendar: React.FC = () => {
                     kl. {startTime} - {endTime}
                 </span>
                 <br />
-                <span>({location})</span>
-                <br />
-                <span>{teachers.join(', ')}</span>
-                <br />
-                <span>{place}</span>
+                {location && (
+                    <>
+                        <span>({location})</span>
+                        <br />
+                    </>
+                )}
+                {teachers && (
+                    <>
+                        <span>{teachers.join(', ')}</span>
+                        <br />
+                    </>
+                )}
+                {place && (
+                    <>
+                        <span>{place}</span>
+                    </>
+                )}
             </div>
         );
     };
@@ -299,6 +311,7 @@ const LadokCalendar: React.FC = () => {
 
                     let teachersValue = '';
                     if (Array.isArray(teachers)) {
+                        console.log(teachers);
                         teachersValue = teachers.join(', ');
                     } else if (typeof teachers === 'string') {
                         teachersValue = teachers;

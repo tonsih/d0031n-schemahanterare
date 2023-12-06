@@ -3,6 +3,7 @@ import { FaCalendar } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useRemoveAllEventsMutation } from '../slices/eventsApiSlice';
 import { RootState } from '../interfaces/rootState';
+import { toast } from 'react-toastify';
 
 const RemoveAllCanvasEventsButton: React.FC = () => {
     const authtoken = useSelector(
@@ -11,13 +12,25 @@ const RemoveAllCanvasEventsButton: React.FC = () => {
     const userId = useSelector((state: RootState) => state.user?.user?.id);
     const [removeAllEvents, { isLoading }] = useRemoveAllEventsMutation();
 
-    const handleClick = () => {
-        if (authtoken && userId) {
-            removeAllEvents({
-                authtoken,
-                contextCode: `user_${userId}`,
-            });
-        }
+    const handleClick = async () => {
+        const removeAllEventsFunc = async () => {
+            if (authtoken && userId) {
+                try {
+                    return await removeAllEvents({
+                        authtoken,
+                        contextCode: `user_${userId}`,
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        };
+
+        await toast.promise(removeAllEventsFunc(), {
+            pending: 'Rensning av Canvas kalendern pågår...',
+            success: 'Canvas kalendern har rensats!',
+            error: 'Ett fel uppstått',
+        });
     };
 
     return (
