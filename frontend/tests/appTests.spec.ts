@@ -137,18 +137,6 @@ test('change an existing course event', async ({ page }: { page: Page }) => {
 });
 
 test('add events to schedule', async ({ page }: { page: Page }) => {
-    const canvasPage: Page = await page.context().newPage();
-    await canvasPage.goto(CANVAS_URL);
-
-    const userIdFieldLocator: Locator = canvasPage.getByLabel('Användarid:');
-    await userIdFieldLocator.fill(LTU_USERNAME!);
-
-    const passwordFieldLocator: Locator = canvasPage.getByLabel('Lösenord:');
-    await passwordFieldLocator.fill(LTU_PASSWORD!);
-
-    await canvasPage.getByRole('button', { name: 'LOGGA IN' }).click();
-    await canvasPage.getByRole('link', { name: 'Calendar' }).click();
-
     const appPage: Page = await page.context().newPage();
     await appPage.goto(VITE_BASEURL!);
 
@@ -184,12 +172,30 @@ test('add events to schedule', async ({ page }: { page: Page }) => {
         timeout: 60000,
     });
 
+    const canvasPage: Page = await page.context().newPage();
+    await canvasPage.goto(CANVAS_URL);
+
+    const userIdFieldLocator: Locator = canvasPage.getByLabel('Användarid:');
+    await userIdFieldLocator.fill(LTU_USERNAME!);
+
+    const passwordFieldLocator: Locator = canvasPage.getByLabel('Lösenord:');
+    await passwordFieldLocator.fill(LTU_PASSWORD!);
+
+    await canvasPage.getByRole('button', { name: 'LOGGA IN' }).click();
+    await canvasPage.getByRole('link', { name: 'Calendar' }).click();
+
+    let eventLocator: Locator = page.getByTitle('Test', { exact: true });
+    await expect(eventLocator).toHaveCount(0);
+
+    eventLocator = page.getByTitle('Test2', { exact: true });
+    await expect(eventLocator).toHaveCount(0);
+
     const modifyButtonLocator: Locator = appPage.getByRole('button', {
         name: 'Modifiera',
     });
     await modifyButtonLocator.click();
 
-    let eventLocator: Locator = appPage
+    eventLocator = appPage
         .getByRole('gridcell', {
             name: 'Handledning kl. 10:15 - 11:45 (Zoom) Diana Chroneer, Jennie Gelter',
             exact: true,
@@ -277,7 +283,7 @@ test('add events to schedule', async ({ page }: { page: Page }) => {
             appPage.getByText('Schemat är nu framgångsrikt');
         await registrationSuccessNotificationLocator.waitFor();
 
-        await canvasPage.reload({ timeout: 60000 });
+        await canvasPage.reload();
         eventLocator = canvasPage.getByTitle('Test', { exact: true });
         await eventLocator.click();
         const eventDetailsLocator: Locator = canvasPage.locator(
@@ -287,7 +293,7 @@ test('add events to schedule', async ({ page }: { page: Page }) => {
             `Dec 8, 10:15am - 11:45am Calendar ${FULL_NAME} Location Zoom Details Länk till LTUs webbsida: https://www.ltu.se`
         );
 
-        eventLocator = canvasPage.getByTitle('Test2');
+        eventLocator = canvasPage.getByTitle('Test2', { exact: true });
         await eventLocator.click();
         await expect(eventDetailsLocator).toContainText(
             `Dec 4, 8:15am - 9:45am Calendar ${FULL_NAME} Location bastu Details beskrivning test text`

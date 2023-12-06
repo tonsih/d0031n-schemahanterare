@@ -28,6 +28,7 @@ export default defineConfig({
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
     },
+    timeout: 330000,
 
     /* Configure projects for major browsers */
     projects: [
@@ -35,23 +36,23 @@ export default defineConfig({
             name: 'chromium',
             use: {
                 ...devices['Desktop Chrome'],
-                // headless: false,
-                // launchOptions: {
-                //     slowMo: 1500,
-                // },
+                headless: false,
+                launchOptions: {
+                    slowMo: 1500,
+                },
             },
         },
 
-        {
-            name: 'firefox',
-            use: {
-                ...devices['Desktop Firefox'],
-                // headless: false,
-                // launchOptions: {
-                //     slowMo: 1500,
-                // },
-            },
-        },
+        // {
+        //     name: 'firefox',
+        //     use: {
+        //         ...devices['Desktop Firefox'],
+        //         // headless: false,
+        //         // launchOptions: {
+        //         //     slowMo: 1500,
+        //         // },
+        //     },
+        // },
 
         // {
         //     name: 'webkit',

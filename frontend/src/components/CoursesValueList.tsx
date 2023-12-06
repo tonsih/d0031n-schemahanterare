@@ -1,6 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import { useCallback, useEffect, useRef } from 'react';
-import { Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { SingleValue } from 'react-select';
 import { Course } from '../interfaces/course';
@@ -88,16 +88,19 @@ const CourseValueList: React.FC = () => {
     return (
         courses && (
             <Row>
-                <LabeledSelect
-                    innerRef={selectRef}
-                    options={courses}
-                    onChange={handleChange}
-                    optionLabel={getOptionLabel}
-                    optionValue={getOptionId}
-                    value={course.selectedCourseData}
-                    placeholder='Välj kurs...'
-                    autoFocus
-                />
+                <Container fluid className='select-container'>
+                    <LabeledSelect
+                        innerRef={selectRef}
+                        options={courses}
+                        onChange={handleChange}
+                        optionLabel={getOptionLabel}
+                        optionValue={getOptionId}
+                        value={course.selectedCourseData}
+                        placeholder='Välj kurs...'
+                        autoFocus
+                    />
+                    <span className='shortcut-text'>(CTRL + K)</span>
+                </Container>
             </Row>
         )
     );
