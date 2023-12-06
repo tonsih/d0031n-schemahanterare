@@ -480,11 +480,6 @@ const LadokCalendar: React.FC = () => {
     };
 
     useEffect(() => {
-        console.log('kurskod');
-        console.log(kurskod);
-        console.log('previousKurskodRef.current');
-        console.log(previousKurskodRef.current);
-        console.log(kurskod !== previousKurskodRef.current);
         if (
             kurskod !== previousKurskodRef.current &&
             reservationsToRegister &&
