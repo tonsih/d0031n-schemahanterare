@@ -9,6 +9,7 @@
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "test": "npx dotenv -e .env.development -- playwright test",
+        "test-serial": "npx dotenv -e .env.development -- playwright test --config=playwright.serial.config.ts",
         "test-codegen": "npx dotenv -e .env.development -- playwright codegen",
         "test-debug": "npx dotenv -e .env.development -- playwright test --debug"
     },
