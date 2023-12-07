@@ -37,8 +37,8 @@ test('add and modify events for schedule', async ({ page }: { page: Page }) => {
     );
     await userConnectedTextLocator.waitFor();
 
-    const utvecklarmenuLocator: Locator = page.getByText('Utvecklarmenu');
-    await utvecklarmenuLocator.hover();
+    const utvecklarmenyLocator: Locator = page.getByText('Utvecklarmeny');
+    await utvecklarmenyLocator.hover();
     const cleanCanvasCalendarLocator: Locator = page.getByRole('button', {
         name: 'Rensa Canvas kalendern',
     });
@@ -181,7 +181,7 @@ test('add and modify events for schedule', async ({ page }: { page: Page }) => {
         fetchCanvasEventsRes = await fetchCanvasEvents();
         expect(checkObjectsExist(fetchCanvasEventsRes)).toBeTruthy;
 
-        await utvecklarmenuLocator.hover();
+        await utvecklarmenyLocator.hover();
         await cleanCanvasCalendarLocator.waitFor();
         await cleanCanvasCalendarLocator.click();
         await calendarCleanSuccessNotificationLocator.waitFor({

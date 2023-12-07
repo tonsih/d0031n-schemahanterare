@@ -22,7 +22,7 @@ const StickyFooter: React.FC = () => {
                 fluid
                 className='d-flex flex-column justify-content-start align-items-start h-100'
             >
-                <Navbar.Brand>Utvecklarmenu</Navbar.Brand>
+                <Navbar.Brand>Utvecklarmeny</Navbar.Brand>
                 <Nav className='d-flex flex-column mt-2 footer-menu-list'>
                     <Nav.Item>
                         <RemoveAllCanvasEventsButton />
