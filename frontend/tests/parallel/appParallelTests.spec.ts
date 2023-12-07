@@ -1,13 +1,6 @@
 import { test, expect, Locator, Page } from '@playwright/test';
 
-const {
-    BEARER_TOKEN,
-    VITE_BASEURL,
-    FULL_NAME,
-    CANVAS_URL,
-    LTU_USERNAME,
-    LTU_PASSWORD,
-} = process.env;
+const { BEARER_TOKEN, VITE_BASEURL, FULL_NAME } = process.env;
 
 test('has correct title', async ({ page }: { page: Page }) => {
     await page.goto(VITE_BASEURL!);
