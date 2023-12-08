@@ -57,6 +57,9 @@ const LadokCalendar: React.FC = () => {
     const [sendConfirmationModalOpen, setSendConfirmationModalOpen] =
         useState<boolean>(false);
     const [eventData, setEventData] = useState<CalendarEvent | null>(null);
+    const [isNewReservation, setIsNewReservation] = useState<boolean | null>(
+        null
+    );
     const [isEditMode, setIsEditMode] = useState(false);
     const [startDate, setStartDate] = useState<string>(
         new Date().toISOString()
@@ -263,6 +266,7 @@ const LadokCalendar: React.FC = () => {
         const { type, location, teachers, description, start, end } =
             calendarEvent._def.extendedProps;
 
+        setIsNewReservation(false);
         setEventData({
             publicId,
             type,
@@ -290,6 +294,7 @@ const LadokCalendar: React.FC = () => {
 
         const tempId = String(reservationsToRegister.length);
 
+        setIsNewReservation(true);
         setEventData({ publicId: tempId, title: 'Ny reservation', start, end });
         setReservationModalOpen(true);
     };
@@ -362,6 +367,7 @@ const LadokCalendar: React.FC = () => {
     const handleReservationModalClose = () => {
         setReservationModalOpen(false);
         setEventData(null);
+        setIsNewReservation(null);
     };
 
     const handleSendConfirmation = () => {
@@ -437,6 +443,7 @@ const LadokCalendar: React.FC = () => {
 
             setReservationModalOpen(false);
             setEventData(null);
+            setIsNewReservation(null);
         }
     };
 
@@ -639,6 +646,7 @@ const LadokCalendar: React.FC = () => {
                         {reservationModalOpen && eventData && (
                             <ReservationInfoModal
                                 eventData={eventData}
+                                isNewReservation={isNewReservation}
                                 show={reservationModalOpen}
                                 handleSave={saveEventChanges}
                                 handleClose={handleReservationModalClose}

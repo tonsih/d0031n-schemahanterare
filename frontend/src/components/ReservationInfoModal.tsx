@@ -17,6 +17,7 @@ interface ReservationInfoModalProps {
     }: CalendarEvent) => void;
     handleClose: () => void;
     handleDelete: () => void;
+    isNewReservation: boolean | null;
 }
 
 const ReservationInfoModal: React.FC<ReservationInfoModalProps> = ({
@@ -25,6 +26,7 @@ const ReservationInfoModal: React.FC<ReservationInfoModalProps> = ({
     handleSave,
     handleClose,
     handleDelete,
+    isNewReservation,
 }) => {
     const formikRef = useRef<FormikProps<CalendarEvent> | null>(null);
 
@@ -198,13 +200,15 @@ const ReservationInfoModal: React.FC<ReservationInfoModalProps> = ({
                     <div className='pt-3'>* Obligatorisk</div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button
-                        variant='danger'
-                        onClick={handleDelete}
-                        id='remove-reservation-button'
-                    >
-                        Ta bort
-                    </Button>
+                    {!isNewReservation && (
+                        <Button
+                            variant='danger'
+                            onClick={handleDelete}
+                            id='remove-reservation-button'
+                        >
+                            Ta bort
+                        </Button>
+                    )}
                     <Button variant='secondary' onClick={handleClose}>
                         Stäng
                     </Button>
