@@ -1,5 +1,5 @@
 import { Field, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { FaEye, FaEyeSlash, FaKey } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import { setAuthtoken } from '../slices/authtokenSlice';
 import { useGetUserProfileQuery } from '../slices/userProfileApiSlice';
 import { setUserData } from '../slices/userSlice';
 
-const TokenField: React.FC = () => {
+const TokenField: React.FC = React.memo(() => {
     const [showAuthtoken, setShowAuthtoken] = useState(false);
 
     const dispatch = useDispatch();
@@ -28,18 +28,24 @@ const TokenField: React.FC = () => {
         }
     );
 
-    const ErrorMessage = ({ error }: { error: string | undefined }) => {
-        if (error) {
-            return <div className='text-danger'>{error}</div>;
+    const ErrorMessage: React.FC<{ error: string | undefined }> = React.memo(
+        ({ error }) => {
+            if (error) {
+                return <div className='text-danger'>{error}</div>;
+            }
+            return null;
         }
-        return null;
-    };
+    );
 
-    const SuccessMessage = ({ userId }: { userId: number | string }) => {
-        return <div className='text-success'>UserId: "{userId}" ansluten</div>;
-    };
+    const SuccessMessage: React.FC<{ userId: number | string }> = React.memo(
+        ({ userId }) => {
+            return (
+                <div className='text-success'>UserId: "{userId}" ansluten</div>
+            );
+        }
+    );
 
-    const ConnectionErrorMessage = () => {
+    const ConnectionErrorMessage: React.FC = React.memo(() => {
         return (
             <div className='text-danger'>
                 Det gick inte att upprätta en anslutning med den angivna
@@ -47,7 +53,7 @@ const TokenField: React.FC = () => {
                 <br /> Kontrollera koden och försök igen.
             </div>
         );
-    };
+    });
 
     const validationSchema = Yup.object().shape({
         authtoken: Yup.string().required(
@@ -55,11 +61,14 @@ const TokenField: React.FC = () => {
         ),
     });
 
-    const handleTokenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
-        dispatch(setUserData(null));
-        dispatch(setAuthtoken(value));
-    };
+    const handleTokenChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const { value } = e.target;
+            dispatch(setUserData(null));
+            dispatch(setAuthtoken(value));
+        },
+        [dispatch]
+    );
 
     useEffect(() => {
         const effect = async () => {
@@ -160,6 +169,6 @@ const TokenField: React.FC = () => {
             </Row>
         </Container>
     );
-};
+});
 
 export default TokenField;

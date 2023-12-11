@@ -1,8 +1,9 @@
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../interfaces/rootState';
+import React from 'react';
 
-const SelectCoursesTextContainer: React.FC = () => {
+const SelectCoursesTextContainer: React.FC = React.memo(() => {
     const courseSchedule = useSelector(
         (state: RootState) => state.course.fetchedCourseData
     );
@@ -19,6 +20,6 @@ const SelectCoursesTextContainer: React.FC = () => {
             </Container>
         )
     );
-};
+});
 
 export default SelectCoursesTextContainer;

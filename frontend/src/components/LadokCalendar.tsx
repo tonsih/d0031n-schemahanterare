@@ -7,7 +7,13 @@ import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { Dispatch } from '@reduxjs/toolkit';
 import moment from 'moment-timezone';
-import { useEffect, useRef, useState } from 'react';
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import {
     FaCheckCircle,
@@ -16,6 +22,7 @@ import {
     FaTimesCircle,
 } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 import { CalendarEvent } from '../interfaces/event';
@@ -28,10 +35,9 @@ import {
 } from '../slices/reservationsSlice';
 import ConfirmationModal from './ConfirmationModal';
 import ReservationInfoModal from './ReservationInfoModal';
-import { toast } from 'react-toastify';
 moment.tz.setDefault('Europe/Stockholm');
 
-const LadokCalendar: React.FC = () => {
+const LadokCalendar: React.FC = React.memo(() => {
     const calendarRef = useRef<FullCalendar>(null);
 
     const dispatch: Dispatch = useDispatch();
@@ -71,52 +77,62 @@ const LadokCalendar: React.FC = () => {
 
     const previousKurskodRef = useRef<string | undefined>();
 
-    const businessHours = [
-        {
-            daysOfWeek: [1, 2, 3, 4, 5],
-            startTime: '08:15',
-            endTime: '09:45',
-        },
-        {
-            daysOfWeek: [1, 2, 3, 4, 5],
-            startTime: '10:15',
-            endTime: '11:45',
-        },
-        {
-            daysOfWeek: [1, 2, 3, 4, 5],
-            startTime: '13:00',
-            endTime: '14:30',
-        },
-        {
-            daysOfWeek: [1, 2, 3, 4, 5],
-            startTime: '14:45',
-            endTime: '16:15',
-        },
-        {
-            daysOfWeek: [1, 2, 3, 4, 5],
-            startTime: '16:30',
-            endTime: '18:00',
-        },
-    ];
+    const businessHours = useMemo(
+        () => [
+            {
+                daysOfWeek: [1, 2, 3, 4, 5],
+                startTime: '08:15',
+                endTime: '09:45',
+            },
+            {
+                daysOfWeek: [1, 2, 3, 4, 5],
+                startTime: '10:15',
+                endTime: '11:45',
+            },
+            {
+                daysOfWeek: [1, 2, 3, 4, 5],
+                startTime: '13:00',
+                endTime: '14:30',
+            },
+            {
+                daysOfWeek: [1, 2, 3, 4, 5],
+                startTime: '14:45',
+                endTime: '16:15',
+            },
+            {
+                daysOfWeek: [1, 2, 3, 4, 5],
+                startTime: '16:30',
+                endTime: '18:00',
+            },
+        ],
+        []
+    );
 
-    const findTimeWindow = (startTime: Date | string) => {
-        const formattedStartTime = moment(startTime).format('HH:mm');
-        const dayOfWeek = moment(startTime).day();
+    const findTimeWindow = useCallback(
+        (startTime: Date | string) => {
+            const formattedStartTime = moment(startTime).format('HH:mm');
+            const dayOfWeek = moment(startTime).day();
 
-        return businessHours.find(
-            ({ daysOfWeek, startTime: bhStartTime, endTime: bhEndTime }) => {
-                const format = 'HH:mm';
-                const startMoment = moment(bhStartTime, format);
-                const endMoment = moment(bhEndTime, format);
+            return businessHours.find(
+                ({
+                    daysOfWeek,
+                    startTime: bhStartTime,
+                    endTime: bhEndTime,
+                }) => {
+                    const format = 'HH:mm';
+                    const startMoment = moment(bhStartTime, format);
+                    const endMoment = moment(bhEndTime, format);
 
-                return (
-                    daysOfWeek.includes(dayOfWeek) &&
-                    formattedStartTime >= startMoment.format(format) &&
-                    formattedStartTime <= endMoment.format(format)
-                );
-            }
-        );
-    };
+                    return (
+                        daysOfWeek.includes(dayOfWeek) &&
+                        formattedStartTime >= startMoment.format(format) &&
+                        formattedStartTime <= endMoment.format(format)
+                    );
+                }
+            );
+        },
+        [businessHours]
+    );
 
     interface timeWindowObj {
         daysOfWeek: number[];
@@ -219,43 +235,47 @@ const LadokCalendar: React.FC = () => {
             };
         });
 
-    const renderEventContent = ({ event }: { event: EventImpl }) => {
-        const { extendedProps } = event;
-        const { type, teachers, location, place, start, end } = extendedProps;
+    const renderEventContent = useCallback(
+        ({ event }: { event: EventImpl }) => {
+            const { extendedProps } = event;
+            const { type, teachers, location, place, start, end } =
+                extendedProps;
 
-        const startTime: string = moment(start).format('HH:mm');
-        const endTime: string = moment(end).format('HH:mm');
+            const startTime: string = moment(start).format('HH:mm');
+            const endTime: string = moment(end).format('HH:mm');
 
-        return (
-            <div>
-                <span className='event-type'>
-                    <strong>{type}</strong>
-                </span>
-                <br />
-                <span>
-                    kl. {startTime} - {endTime}
-                </span>
-                <br />
-                {location && (
-                    <>
-                        <span>({location})</span>
-                        <br />
-                    </>
-                )}
-                {teachers && (
-                    <>
-                        <span>{teachers.join(', ')}</span>
-                        <br />
-                    </>
-                )}
-                {place && (
-                    <>
-                        <span>{place}</span>
-                    </>
-                )}
-            </div>
-        );
-    };
+            return (
+                <div>
+                    <span className='event-type'>
+                        <strong>{type}</strong>
+                    </span>
+                    <br />
+                    <span>
+                        kl. {startTime} - {endTime}
+                    </span>
+                    <br />
+                    {location && (
+                        <>
+                            <span>({location})</span>
+                            <br />
+                        </>
+                    )}
+                    {teachers && (
+                        <>
+                            <span>{teachers.join(', ')}</span>
+                            <br />
+                        </>
+                    )}
+                    {place && (
+                        <>
+                            <span>{place}</span>
+                        </>
+                    )}
+                </div>
+            );
+        },
+        []
+    );
 
     const handleEventClick = ({
         event: calendarEvent,
@@ -280,105 +300,103 @@ const LadokCalendar: React.FC = () => {
         setReservationModalOpen(true);
     };
 
-    const handleDateSelect = ({
-        view,
-        start,
-        end,
-    }: {
-        view: ViewApi;
-        start: Date;
-        end: Date;
-    }) => {
-        const calendarApi = view.calendar;
-        calendarApi.unselect();
+    const handleDateSelect = useCallback(
+        ({ view, start, end }: { view: ViewApi; start: Date; end: Date }) => {
+            const calendarApi = view.calendar;
+            calendarApi.unselect();
 
-        const tempId = String(reservationsToRegister.length);
+            const tempId = String(reservationsToRegister.length);
 
-        setIsNewReservation(true);
-        setEventData({ publicId: tempId, title: 'Ny reservation', start, end });
-        setReservationModalOpen(true);
-    };
+            setIsNewReservation(true);
+            setEventData({
+                publicId: tempId,
+                title: 'Ny reservation',
+                start,
+                end,
+            });
+            setReservationModalOpen(true);
+        },
+        [reservationsToRegister?.length]
+    );
 
-    const saveEventChanges = ({
-        type,
-        teachers,
-        location,
-        description,
-    }: CalendarEvent) => {
-        if (eventData) {
-            const { start, end, publicId: tempId } = eventData;
+    const saveEventChanges = useCallback(
+        ({ type, teachers, location, description }: CalendarEvent) => {
+            if (eventData) {
+                const { start, end, publicId: tempId } = eventData;
 
-            if (start) {
-                const timeWindow = findTimeWindow(start);
+                if (start) {
+                    const timeWindow = findTimeWindow(start);
 
-                if (timeWindow) {
-                    const { startTime, endTime } = timeWindow;
+                    if (timeWindow) {
+                        const { startTime, endTime } = timeWindow;
 
-                    let teachersValue = '';
-                    if (Array.isArray(teachers)) {
-                        console.log(teachers);
-                        teachersValue = teachers.join(', ');
-                    } else if (typeof teachers === 'string') {
-                        teachersValue = teachers;
+                        let teachersValue = '';
+                        if (Array.isArray(teachers)) {
+                            teachersValue = teachers.join(', ');
+                        } else if (typeof teachers === 'string') {
+                            teachersValue = teachers;
+                        }
+
+                        const reservation = {
+                            columns: [
+                                '',
+                                type || '',
+                                location || '',
+                                teachersValue,
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                            ],
+                            startdate: moment(start).format('YYYY-MM-DD'),
+                            starttime: startTime,
+                            enddate: moment(end).format('YYYY-MM-DD'),
+                            endtime: endTime,
+                            tempId,
+                            description,
+                        };
+
+                        const updatedReservations =
+                            reservationsToRegister.filter(
+                                (reservation: Reservation) =>
+                                    reservation.tempId !== tempId
+                            );
+
+                        dispatch(removeReservation(tempId));
+
+                        dispatch(
+                            setReservationsForRegistration([
+                                ...updatedReservations,
+                                reservation,
+                            ])
+                        );
                     }
-
-                    const reservation = {
-                        columns: [
-                            '',
-                            type || '',
-                            location || '',
-                            teachersValue,
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                        ],
-                        startdate: moment(start).format('YYYY-MM-DD'),
-                        starttime: startTime,
-                        enddate: moment(end).format('YYYY-MM-DD'),
-                        endtime: endTime,
-                        tempId,
-                        description,
-                    };
-
-                    const updatedReservations = reservationsToRegister.filter(
-                        (reservation: Reservation) =>
-                            reservation.tempId !== tempId
-                    );
-
-                    dispatch(removeReservation(tempId));
-
-                    dispatch(
-                        setReservationsForRegistration([
-                            ...updatedReservations,
-                            reservation,
-                        ])
-                    );
                 }
             }
-        }
 
-        setReservationModalOpen(false);
-    };
+            setReservationModalOpen(false);
+        },
+        [dispatch, eventData, findTimeWindow, reservationsToRegister]
+    );
 
-    const handleReservationModalClose = () => {
+    const handleReservationModalClose = useCallback(() => {
         setReservationModalOpen(false);
         setEventData(null);
         setIsNewReservation(null);
-    };
+    }, []);
 
-    const handleSendConfirmation = () => {
+    const handleSendConfirmation = useCallback(() => {
         setSendConfirmationModalOpen(true);
-    };
+    }, []);
 
     const handleSendConfirmationModalClose = () => {
         setSendConfirmationModalOpen(false);
     };
 
-    const handleSendToCanvas = async () => {
+    const handleSendToCanvas = useCallback(async () => {
         if (authtoken && !isEditMode) {
             const dateTimeToISOString = (date: string, time: string) =>
                 moment(`${date} ${time}`, 'YYYY-MM-DD HH:mm').toISOString();
@@ -433,9 +451,9 @@ const LadokCalendar: React.FC = () => {
                 setSendConfirmationModalOpen(false);
             }
         }
-    };
+    }, [addEvent, authtoken, isEditMode, reservationsToRegister, user?.id]);
 
-    const handleDelete = () => {
+    const handleDelete = useCallback(() => {
         const isConfirmed = window.confirm('Är du säker?');
 
         if (isConfirmed && eventData) {
@@ -445,12 +463,12 @@ const LadokCalendar: React.FC = () => {
             setEventData(null);
             setIsNewReservation(null);
         }
-    };
+    }, [dispatch, eventData]);
 
-    const handleCancelEdit = () => {
+    const handleCancelEdit = useCallback(() => {
         setIsEditMode(false);
         dispatch(setReservationsForRegistration(prevReservations));
-    };
+    }, [prevReservations, dispatch]);
 
     const handleEnterEditMode = () => {
         setPrevReservations(reservationsToRegister);
@@ -669,6 +687,6 @@ const LadokCalendar: React.FC = () => {
             )}
         </Container>
     );
-};
+});
 
 export default LadokCalendar;

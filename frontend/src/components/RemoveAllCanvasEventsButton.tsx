@@ -1,18 +1,19 @@
 import { Button, Spinner } from 'react-bootstrap';
 import { FaCalendar } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { useRemoveAllEventsMutation } from '../slices/eventsApiSlice';
-import { RootState } from '../interfaces/rootState';
 import { toast } from 'react-toastify';
+import { RootState } from '../interfaces/rootState';
+import { useRemoveAllEventsMutation } from '../slices/eventsApiSlice';
+import React, { useCallback } from 'react';
 
-const RemoveAllCanvasEventsButton: React.FC = () => {
+const RemoveAllCanvasEventsButton: React.FC = React.memo(() => {
     const authtoken = useSelector(
         (state: RootState) => state.authtoken?.authtoken
     );
     const userId = useSelector((state: RootState) => state.user?.user?.id);
     const [removeAllEvents, { isLoading }] = useRemoveAllEventsMutation();
 
-    const handleClick = async () => {
+    const handleClick = useCallback(async () => {
         const removeAllEventsFunc = async () => {
             if (authtoken && userId) {
                 try {
@@ -31,7 +32,7 @@ const RemoveAllCanvasEventsButton: React.FC = () => {
             success: 'Canvas kalendern har rensats!',
             error: 'Ett fel uppstått',
         });
-    };
+    }, [authtoken, removeAllEvents, userId]);
 
     return (
         <Button
@@ -57,6 +58,6 @@ const RemoveAllCanvasEventsButton: React.FC = () => {
             </div>
         </Button>
     );
-};
+});
 
 export default RemoveAllCanvasEventsButton;

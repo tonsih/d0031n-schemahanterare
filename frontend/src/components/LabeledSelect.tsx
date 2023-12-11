@@ -1,4 +1,4 @@
-import { Ref } from 'react';
+import React, { Ref } from 'react';
 import Select, {
     ActionMeta,
     GetOptionLabel,
@@ -68,4 +68,4 @@ const LabeledSelect = <T,>({
     );
 };
 
-export default LabeledSelect;
+export default React.memo(LabeledSelect) as typeof LabeledSelect;

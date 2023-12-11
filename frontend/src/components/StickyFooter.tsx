@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import RemoveAllCanvasEventsButton from './RemoveAllCanvasEventsButton';
 
-const StickyFooter: React.FC = () => {
+const StickyFooter: React.FC = React.memo(() => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const footerStyle = {
@@ -31,6 +31,6 @@ const StickyFooter: React.FC = () => {
             </Container>
         </Navbar>
     );
-};
+});
 
 export default StickyFooter;

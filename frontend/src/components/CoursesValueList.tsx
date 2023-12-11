@@ -1,5 +1,5 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { SingleValue } from 'react-select';
@@ -11,7 +11,7 @@ import { setReservationsForRegistration } from '../slices/reservationsSlice';
 import { setSelectedCourse } from '../slices/selectedCourseSlice';
 import LabeledSelect from './LabeledSelect';
 
-const CourseValueList: React.FC = () => {
+const CourseValueList: React.FC = React.memo(() => {
     const { data: courses } = useGetCoursesQuery();
 
     const dispatch: Dispatch<any> = useDispatch();
@@ -29,31 +29,47 @@ const CourseValueList: React.FC = () => {
         [dispatch]
     );
 
-    const handleChange = (
-        newCourse: SingleValue<Course['selectedCourseData']>
-    ) => {
-        updateSelectedCourseData(newCourse);
-        const { apiUrl } = newCourse as Course['selectedCourseData'];
-        fetchCourseSchedule(apiUrl);
-    };
+    const fetchCourseSchedule = useCallback(
+        (apiUrl: string) => {
+            dispatch(
+                coursesApiSlice.endpoints.getCourseSchedule.initiate(apiUrl, {
+                    forceRefetch: true,
+                })
+            );
+        },
+        [dispatch]
+    );
 
-    const getOptionLabel = (course: Course['selectedCourseData']) => {
-        const { kurskod, namn, kommentar, signatur, specBenamning } = course;
-        const courseParts = [kurskod, namn, kommentar, signatur, specBenamning];
-        const courseString = courseParts.filter(Boolean).join(', ');
-        return courseString;
-    };
+    const handleChange = useCallback(
+        (newCourse: SingleValue<Course['selectedCourseData']>) => {
+            updateSelectedCourseData(newCourse);
+            const { apiUrl } = newCourse as Course['selectedCourseData'];
+            fetchCourseSchedule(apiUrl);
+        },
+        [updateSelectedCourseData, fetchCourseSchedule]
+    );
 
-    const getOptionId = (course: Course['selectedCourseData']) =>
-        course?.id?.toString();
+    const getOptionLabel = useCallback(
+        (course: Course['selectedCourseData']) => {
+            const { kurskod, namn, kommentar, signatur, specBenamning } =
+                course;
+            const courseParts = [
+                kurskod,
+                namn,
+                kommentar,
+                signatur,
+                specBenamning,
+            ];
+            const courseString = courseParts.filter(Boolean).join(', ');
+            return courseString;
+        },
+        []
+    );
 
-    const fetchCourseSchedule = (apiUrl: string) => {
-        dispatch(
-            coursesApiSlice.endpoints.getCourseSchedule.initiate(apiUrl, {
-                forceRefetch: true,
-            })
-        );
-    };
+    const getOptionId = useCallback(
+        (course: Course['selectedCourseData']) => course?.id?.toString(),
+        []
+    );
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -104,6 +120,6 @@ const CourseValueList: React.FC = () => {
             </Row>
         )
     );
-};
+});
 
 export default CourseValueList;
