@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './slices/apiSlice';
-import selectedCourseReducer from './slices/selectedCourseSlice';
-import reservationsReducer from './slices/reservationsSlice';
 import authtokenReducer from './slices/authtokenSlice';
+import reservationsReducer from './slices/reservationsSlice';
+import selectedCourseReducer from './slices/selectedCourseSlice';
 import userReducer from './slices/userSlice';
 
 const store = configureStore({

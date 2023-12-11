@@ -1,11 +1,11 @@
-import { test, expect, Locator, Page } from '@playwright/test';
+import { Locator, Page, expect, test } from '@playwright/test';
 import { fetchData } from '../../../utils/fetchData';
 
 const { BEARER_TOKEN, VITE_BASEURL, USER_ID } = process.env;
 
+import { CANVAS_BASE_URL } from '../../constants/baseURLS';
 import { EVENTS_URL } from '../../constants/pathsCanvas';
 import { CANVAS_PROXY_URL } from '../../constants/proxyURLS';
-import { CANVAS_BASE_URL } from '../../constants/baseURLS';
 
 test('add and modify events for schedule', async ({ page }: { page: Page }) => {
     const fetchCanvasEvents = async () => {

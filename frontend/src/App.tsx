@@ -1,12 +1,12 @@
+import { Col, Container, Row } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './assets/scss/main.scss';
 import CoursesValueList from './components/CoursesValueList';
 import LadokCalendar from './components/LadokCalendar';
-import './assets/scss/main.scss';
-import TokenField from './components/TokenField';
-import { Col, Container, Row } from 'react-bootstrap';
 import SelectCoursesTextContainer from './components/SelectCoursesTextContainer';
 import StickyFooter from './components/StickyFooter';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import TokenField from './components/TokenField';
 
 const App = () => {
     return (

@@ -4,10 +4,10 @@ import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { FaEye, FaEyeSlash, FaKey } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+import { RootState } from '../interfaces/rootState';
 import { setAuthtoken } from '../slices/authtokenSlice';
 import { useGetUserProfileQuery } from '../slices/userProfileApiSlice';
 import { setUserData } from '../slices/userSlice';
-import { RootState } from '../interfaces/rootState';
 
 const TokenField: React.FC = () => {
     const [showAuthtoken, setShowAuthtoken] = useState(false);

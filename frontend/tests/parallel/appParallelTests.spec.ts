@@ -1,4 +1,4 @@
-import { test, expect, Locator, Page } from '@playwright/test';
+import { Locator, Page, expect, test } from '@playwright/test';
 
 const { BEARER_TOKEN, VITE_BASEURL, FULL_NAME } = process.env;
 
