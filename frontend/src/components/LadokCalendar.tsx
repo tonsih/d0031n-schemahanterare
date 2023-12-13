@@ -77,36 +77,37 @@ const LadokCalendar: React.FC = React.memo(() => {
 
     const previousKurskodRef = useRef<string | undefined>();
 
-    const businessHours = useMemo(
-        () => [
+    const businessHours = useMemo(() => {
+        const daysOfWeek = [1, 2, 3, 4, 5];
+
+        return [
             {
-                daysOfWeek: [1, 2, 3, 4, 5],
+                daysOfWeek,
                 startTime: '08:15',
                 endTime: '09:45',
             },
             {
-                daysOfWeek: [1, 2, 3, 4, 5],
+                daysOfWeek,
                 startTime: '10:15',
                 endTime: '11:45',
             },
             {
-                daysOfWeek: [1, 2, 3, 4, 5],
+                daysOfWeek,
                 startTime: '13:00',
                 endTime: '14:30',
             },
             {
-                daysOfWeek: [1, 2, 3, 4, 5],
+                daysOfWeek,
                 startTime: '14:45',
                 endTime: '16:15',
             },
             {
-                daysOfWeek: [1, 2, 3, 4, 5],
+                daysOfWeek,
                 startTime: '16:30',
                 endTime: '18:00',
             },
-        ],
-        []
-    );
+        ];
+    }, []);
 
     const findTimeWindow = useCallback(
         (startTime: Date | string) => {
