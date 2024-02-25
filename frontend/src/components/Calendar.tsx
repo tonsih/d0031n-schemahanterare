@@ -37,7 +37,7 @@ import ConfirmationModal from './ConfirmationModal';
 import ReservationInfoModal from './ReservationInfoModal';
 moment.tz.setDefault('Europe/Stockholm');
 
-const LadokCalendar: React.FC = React.memo(() => {
+const Calendar: React.FC = React.memo(() => {
     const calendarRef = useRef<FullCalendar>(null);
 
     const dispatch: Dispatch = useDispatch();
@@ -690,4 +690,4 @@ const LadokCalendar: React.FC = React.memo(() => {
     );
 });
 
-export default LadokCalendar;
+export default Calendar;

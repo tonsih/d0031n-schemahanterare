@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './assets/scss/main.scss';
 import CoursesValueList from './components/CoursesValueList';
-import LadokCalendar from './components/LadokCalendar';
+import Calendar from './components/Calendar';
 import SelectCoursesTextContainer from './components/SelectCoursesTextContainer';
 import StickyFooter from './components/StickyFooter';
 import TokenField from './components/TokenField';
@@ -29,7 +29,7 @@ const App = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <LadokCalendar />
+                        <Calendar />
                     </Col>
                 </Row>
                 <Row>
