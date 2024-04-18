@@ -27,6 +27,10 @@ dist-ssr
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/tests/parallel
+/tests/serial
+playwright.serial.config.ts
+.vscode
 
 .env*
 env.d.ts
