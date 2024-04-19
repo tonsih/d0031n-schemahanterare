@@ -16,13 +16,13 @@ CREATE DATABASE time_edit;
  * =============================================================================
  */
 CREATE TABLE kurs (
-    id bigserial PRIMARY KEY,
-    kurskod varchar,
-    namn varchar,
-    kommentar varchar,
-    signatur varchar,
-    spec_benamning varchar,
-    api_url varchar
+    id BIGSERIAL PRIMARY KEY,
+    kurskod VARCHAR,
+    namn VARCHAR,
+    kommentar VARCHAR,
+    signatur VARCHAR,
+    spec_benamning VARCHAR,
+    api_url VARCHAR
 );
 
 /* 
