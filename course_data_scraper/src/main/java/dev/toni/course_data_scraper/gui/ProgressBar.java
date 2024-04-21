@@ -1,4 +1,4 @@
-package dev.toni.course_data_assembler.gui;
+package dev.toni.course_data_scraper.gui;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,11 +38,6 @@ public class ProgressBar {
      * format.
      */
     public void printProgress() {
-        if (initialPrint) {
-            System.out.println("Writing course data to ../db/kurser.csv");
-            initialPrint = false;
-        }
-
         int width = 50;
         int currentPercentage = (int) (completed * 100 / total);
 

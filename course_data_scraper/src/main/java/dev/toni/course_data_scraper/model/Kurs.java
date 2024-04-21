@@ -1,4 +1,4 @@
-package dev.toni.course_data_assembler.model;
+package dev.toni.course_data_scraper.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -10,16 +10,16 @@ import lombok.*;
 @Setter
 @Getter
 public class Kurs {
-    @JsonProperty("Kurskod")
+    @JsonProperty("Course code")
     private String kurskod;
 
-    @JsonProperty("Namn")
+    @JsonProperty("Name")
     private String namn;
 
     @JsonProperty("Kommentar")
     private String kommentar;
 
-    @JsonProperty("Signatur")
+    @JsonProperty("Signature")
     private String signatur;
 
     @JsonProperty("Spec benämning")

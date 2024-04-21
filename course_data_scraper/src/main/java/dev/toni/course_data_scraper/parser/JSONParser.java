@@ -1,4 +1,4 @@
-package dev.toni.course_data_assembler.parser;
+package dev.toni.course_data_scraper.parser;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

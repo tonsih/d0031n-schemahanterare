@@ -1,4 +1,4 @@
-package dev.toni.course_data_assembler.model;
+package dev.toni.course_data_scraper.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,13 +44,16 @@ public class KursContainer {
      * @param filename The name of the CSV file to write the kurs data to.
      */
     public void writeCsv(String filename) {
-        String directoryPath = "../db/";
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
+
+        File file = new File(filename);
+
+        File directory = file.getParentFile();
+
+        if (directory != null && !directory.exists()) {
             directory.mkdirs();
         }
-        String fullPath = directoryPath + filename;
-        try (FileWriter writer = new FileWriter(fullPath)) {
+
+        try (FileWriter writer = new FileWriter(file)) {
             writer.write(
                     "\"kurskod\",\"namn\",\"kommentar\",\"signatur\",\"spec_benämning\",\"api_url\"\n");
 

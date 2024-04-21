@@ -1,4 +1,4 @@
-package dev.toni.course_data_assembler.parser;
+package dev.toni.course_data_scraper.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,7 +19,7 @@ public class HTMLParser {
      * @param htmlString The HTML content as a string, typically the response from a course listing page.
      * @return A string containing all extracted signatures or identifiers, each followed by a new line.
      */
-    public static String parseAllCoursesResponse(String htmlString) {
+    public static String parseCoursesResponse(String htmlString) {
         Document doc = Jsoup.parse(htmlString);
         Elements infoTitles = doc.select(".infoboxtitle");
         StringBuilder extractedText = new StringBuilder();
