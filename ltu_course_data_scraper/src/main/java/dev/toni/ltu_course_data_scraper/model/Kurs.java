@@ -1,4 +1,4 @@
-package dev.toni.course_data_scraper.model;
+package dev.toni.ltu_course_data_scraper.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

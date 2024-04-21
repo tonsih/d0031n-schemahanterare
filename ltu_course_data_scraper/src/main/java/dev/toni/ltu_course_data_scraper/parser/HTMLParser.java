@@ -1,4 +1,4 @@
-package dev.toni.course_data_scraper.parser;
+package dev.toni.ltu_course_data_scraper.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

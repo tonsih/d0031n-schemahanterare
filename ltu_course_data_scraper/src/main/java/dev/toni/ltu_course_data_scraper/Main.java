@@ -1,14 +1,14 @@
-package dev.toni.course_data_scraper;
+package dev.toni.ltu_course_data_scraper;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.SelectOption;
-import dev.toni.course_data_scraper.api.WebRequestHandler;
-import dev.toni.course_data_scraper.constants.K;
-import dev.toni.course_data_scraper.gui.ProgressBar;
-import dev.toni.course_data_scraper.model.Kurs;
-import dev.toni.course_data_scraper.model.KursContainer;
-import dev.toni.course_data_scraper.parser.HTMLParser;
-import dev.toni.course_data_scraper.parser.JSONParser;
+import dev.toni.ltu_course_data_scraper.api.WebRequestHandler;
+import dev.toni.ltu_course_data_scraper.constants.K;
+import dev.toni.ltu_course_data_scraper.gui.ProgressBar;
+import dev.toni.ltu_course_data_scraper.model.Kurs;
+import dev.toni.ltu_course_data_scraper.model.KursContainer;
+import dev.toni.ltu_course_data_scraper.parser.HTMLParser;
+import dev.toni.ltu_course_data_scraper.parser.JSONParser;
 
 import java.io.IOException;
 import java.nio.file.Paths;

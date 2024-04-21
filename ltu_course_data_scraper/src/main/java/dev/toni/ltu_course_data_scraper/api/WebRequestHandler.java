@@ -1,4 +1,4 @@
-package dev.toni.course_data_scraper.api;
+package dev.toni.ltu_course_data_scraper.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
