@@ -116,8 +116,6 @@ public class Main implements K {
                         BASE_URL,
                         dataId));
 
-                System.out.println(response);
-
                 Kurs kurs = JSONParser.parse(response, Kurs.class);
 
                 Locator infoBoxLocator = page.locator("id=info0");
