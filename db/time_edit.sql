@@ -47,4 +47,4 @@ CREATE INDEX idx_kurs_api_url ON kurs (api_url);
  * ==                          DATA INSERTION                                 ==
  * =============================================================================
  */
-\copy kurs(kurskod, namn, kommentar, signatur, spec_benamning, api_url) FROM './kurser.csv' WITH (FORMAT csv, HEADER, DELIMITER ',', QUOTE '"');
+\copy kurs(kurskod, namn, kommentar, signatur, spec_benamning, api_url) FROM '{{filename}}' WITH (FORMAT csv, HEADER, DELIMITER ',', QUOTE '"');
