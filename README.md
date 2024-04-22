@@ -1,8 +1,8 @@
 # Schemahanterare (D0031N - Examination Assignment)
 
 This repository contains the code and resources for an LTU project developed as
-part of the course: "D0027E - Interaction Design & Software Programming". The
-project includes a web application that automates LTU's course scheduling by
+part of the course: "D0031N - Enterprise Architecture using SOA". The project
+includes a web application that automates LTU's course scheduling by
 functioning as an intermediary between TimeEdit and Canvas. The web application
 enables course coordinators to directly register courses and provides
 functionalities to modify, add, or remove course details retrieved from
