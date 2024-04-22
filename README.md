@@ -46,11 +46,11 @@ This repository includes:
 
 Before you begin, make sure you have the following installed:
 
--   Node.js: The project requires Node.js version 18.16.0 LTS or higher. You can
-    download and install the latest LTS version of Node.js from the official
-    Node.js website: [https://nodejs.org](https://nodejs.org). This will also
-    install npm (Node Package Manager) along with Node.js.
+-   **Node.js**: The project requires Node.js version 18.16.0 LTS or higher.
+    You can download and install the latest LTS version of Node.js from the
+    official Node.js website: [https://nodejs.org](https://nodejs.org). This
+    will also install npm (Node Package Manager) along with Node.js.
 
--   Canvas API Access Key: The client presents a field to input the API access
-    key. This key is necessary for successfully transferring the scheduled data
-    to Canvas.
+-   **Canvas API Access Key**: The client presents a field to input the API
+    access key. This key is necessary for successfully transferring the
+    scheduled data to Canvas.
